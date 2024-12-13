@@ -38,7 +38,7 @@ xhr.send();
 });
 
 //Post Form Function
-document.getElementById('PostForm').addEventListener('submit', (e) => {
+document.getElementById('postForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const title = document.getElementById('postTitle').value;
     const body = document.getElementById('postBody').value;
