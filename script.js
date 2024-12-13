@@ -61,3 +61,30 @@ document.getElementById('PostForm').addEventListener('submit', (e) => {
         alert(`Error: ${error.message}`);
     });
 });
+
+//Put Function
+document.getElementById('putForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = document.getElementById('postId').value;
+    const title = document.getElementById('updateTitle').value;
+    const body = document.getElementById('updateBody').value;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', `https://jsonplaceholder.typeicode.com/posts/${id}`);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            document.getElementById('displayData').innerHTML = `
+            <h3>Updated: ${data.title}</h3>
+            <p>${data.body}</p>
+            `;
+        } else {
+            alert(`Error: ${xhr.statusText}`);
+        }
+    };
+    xhr.onerror = () => {
+        alert('Network error');
+    };
+    xhr.send(JSON.stringify({title, body}));
+});
