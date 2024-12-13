@@ -1,3 +1,4 @@
+//Fetch Function
 document.getElementById('fetchWithFetch').addEventListener('click', () => {
     fetch('https://jsonplaceholder.typeicode.com/posts/1')
     .then(response => {
@@ -15,6 +16,7 @@ document.getElementById('fetchWithFetch').addEventListener('click', () => {
     });
 });
 
+//XHR Function
 document.getElementById('fetchWithXHR').addEventListener('click', () => {
 const xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://jsonplaceholder.typeicode.com/posts/2');
@@ -35,3 +37,27 @@ xhr.error = () => {
 xhr.send();
 });
 
+//Post Form Function
+document.getElementById('PostForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('postTitle').value;
+    const body = document.getElementById('postBody').value;
+
+    fetch('https://jsonplaceholder.typeicode.com/posts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({title, body}),
+    })
+    .then(response => {
+        if (!response.ok) throw new Error ('Failed to post data');
+        return response.json();
+    })
+    .then(data => {
+        alert('Post created with ID: ${data.id}');
+    })
+    .catch(error => {
+        alert(`Error: ${error.message}`);
+    });
+});
