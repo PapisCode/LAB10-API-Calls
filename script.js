@@ -15,3 +15,23 @@ document.getElementById('fetchWithFetch').addEventListener('click', () => {
     });
 });
 
+document.getElementById('fetchWithXHR').addEventListener('click', () => {
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://jsonplaceholder.typeicode.com/posts/2');
+xhr.onload = () => {
+    if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        document.getElementById('displayData').innerHTML = `
+        <h3>${data.title}</h3>
+        <p>${data.body}</p>
+        `;
+    } else {
+        document.getElementById('displayData').innerText = `Error: ${xhr.status} - ${xhr.statusText}`;
+    }
+};
+xhr.error = () => {
+    document.getElementById('displayData').innerText = 'Network error';
+};
+xhr.send();
+});
+
